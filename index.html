@@ -1,0 +1,857 @@
+
+<!DOCTYPE html>
+
+<html dir="rtl">
+
+<head>
+
+<script src="/shared/jquery.min.js"></script>
+
+    <script>
+    function set_validator_errors(){
+        orderValidator.errorTitle = 'يرجى تصحيح الأخطاء التالية'; 
+
+        orderValidator.errorNameField = 'الاسم'; 
+        orderValidator.errorNameMess = 'أدخل أسمك'; 
+        
+        orderValidator.errorPhoneField = 'رقم التليفون'; 
+        orderValidator.errorPhoneMess = 'أدخل رقم الهاتف الصحيح'; 
+        
+        orderValidator.errorAddress = 'أدخل العنوان الصحيح'; 
+        orderValidator.errorRequired = 'يتطلب حقلا'; 
+        orderValidator.errorMaxLength = 'حرف {1} بحد أقصى صالح'; 
+        orderValidator.errorMinLength = 'الحد الأدنى لعدد حروف {1}'; 
+        orderValidator.errorEmailField = 'البريد الإلكتروني';
+        orderValidator.errorEmail = 'تم تحديد بريد إلكتروني غير صالح';
+        }
+    </script>
+    
+<script>
+
+
+window.app = {
+    timestamp: parseInt((new Date()).getTime() / 1000),
+    jq: jQuery,
+    formAction: window.location.href,
+    leadToken: '6394869c2c93c6.83375566',
+    offers: {"33522":{"id":33522,"country":{"code":"DZ","name":"\u0410\u043b\u0436\u0438\u0440"},"price":"5999","price2":"11998","currency":{"code":"DZD","name":"DA"},"discount":"","delivery_price":"","link":"","product_sku":"","prepaid_info_html":""}},
+    currentOffer: {"id":33522,"country":{"code":"DZ","name":"\u0410\u043b\u0436\u0438\u0440"},"price":"5999","price2":"11998","currency":{"code":"DZD","name":"DA"},"discount":"","delivery_price":"","link":"","product_sku":"","prepaid_info_html":""},
+    allowedCountries: ["DZ"],
+    _setOfferId: false,
+    streamHid: '',
+    showcaseUrl: '',
+    disablePhoneMask: Boolean(),
+    
+    setOffer: function (offerId) {
+        if (offerId == this._setOfferId) {
+            return ;
+        }
+        this._setOfferId = offerId;
+        if (offerId) {
+            var offer = app.offers[offerId];
+            var previousOffer = app.currentOffer;
+            app.currentOffer = offer;
+            var event = this.jq.Event("offerchange");
+            event.previousOffer = previousOffer;
+            event.currentOffer = app.currentOffer;
+            this.jq(document).trigger(event);
+            this.updatePage(offer);
+        } else {
+            $('input[name=country]').val('');
+        }
+    },
+    
+    updatePage: function(offer) {
+        $('x-newprice').html(offer.price);
+        $('x-oldprice').html(offer.price2);
+        $('x-currency').html(offer.currency.name);
+        $('input[name=offer], select[name=offer]').val(offer.id);
+        $('input[name=country]').val(offer.country.code);
+    },
+
+    blockForm: function() {
+        // Блокируем кнопки при отправке формы
+        $('input[type=submit]', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        $('button', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        app.incompleteOrder.lock = true;
+        clearTimeout(app.incompleteOrder.timer);
+    },
+
+    unblockForm: function() {
+        $('input[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        $('button[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        app.incompleteOrder.lock = false;
+        clearTimeout(app.incompleteOrder.timer);
+    }
+
+};
+
+
+</script><script src="/shared/form.validate.js?12"></script>
+<script src="/shared/interPhoneCodes.js"></script>
+<script src="/shared/showcase.js?v=1"></script>
+<script src="/shared/form.incomplete.js?10"></script>
+<script src="/shared/main2.js?17"></script>
+
+
+
+    <script src="js/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <style>
+        .ac_footer {
+            position: relative;
+            top: 10px;
+            height: 0;
+            text-align: center;
+            margin-bottom: 70px;
+            color: #a12000;
+        }
+
+        .ac_footer a {
+            color: #a12000;
+        }
+
+        .ac_footer p {
+            text-align: center;
+        }
+
+        img[height="1"],
+        img[width="1"] {
+            display: none !important;
+        }
+    </style>
+    <meta charset="utf-8" />
+    <meta content="telephone=no" name="format-detection" />
+
+    <title>Oculus Vision – كبسولات لرؤية وبصر أفضل</title>
+    <link href="img/focus_bottle1.png" rel="shortcut icon" type="image/png" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&subset=latin-ext,vietnamese" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin-ext,vietnamese" rel="stylesheet" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="css/materialize.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="css/lightslider.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <style>
+        .action-text {
+            margin-bottom: 1em;
+            padding: 10px;
+            font-size: 19px;
+            font-weight: 700;
+            color: black;
+            border: 2px solid black;
+            background: white;
+        }
+
+        .js_errorMessage {
+            direction: ltr !important;
+        }
+
+        .ac_footer {
+            direction: ltr !important;
+        }
+
+        .only_number {
+            direction: ltr;
+            text-align: right;
+        }
+    </style>
+
+
+    <style>
+        .ajax_loader {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!--retarget-->
+    <!--retarget-->
+
+    <main>
+        <div class="js__countryblock" data-country="sng">
+            <section class="block-01">
+                <div class="container">
+                    <div class="row">
+                        <div class="col xl6 l5 m12 s12">
+                            <div class="block-01__subtitle ttu">حان الوقت</div>
+                            <div class="block-01__title ttu">لإستعادة بصرك!</div>
+                        </div>
+                        <div class="col xl6 l7 m12 s12">
+                            <div class="block-01__dashes dflex">
+                                <div class="block-01__dashes-item wow bounceIn" data-wow-delay="1.5s">
+                                    <div class="dashes-item__text fwb ttu">
+                                        دون وصف الطبيب
+                                        <span>
+                      للاستخدام <br />
+                      بالمنزل
+                    </span>
+                                    </div>
+                                </div>
+                                <div class="block-01__dashes-item wow bounceIn" data-wow-delay="1.6s">
+                                    <div class="dashes-item__text fwb ttu">
+                                        100% <span> مكونات طبيعية </span>
+                                    </div>
+                                </div>
+                                <div class="block-01__dashes-item wow bounceIn" data-wow-delay="1.7s">
+                                    <div class="dashes-item__text fwb ttu">
+                                        ينصح به
+                                        <span>
+                      مركز العناية <br />
+                      بالعيون
+                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col xl4 l4 m12 s12">
+                            <div class="img_box block-01__prod-image wow zoomIn" data-wow-delay="1.5s">
+                                <img src="img/focus_bottle1.png" style="max-width: 225px;" />
+                            </div>
+                        </div>
+                        <div class="col xl4 l4 m6 s12">
+                            <div class="block-01__prod-plus">
+                                <div class="prod-pluses__title fwb">
+                                    يخفف الشعور بالإجهاد والألم في العيون
+                                </div>
+                                <div class="prod-pluses__text">في غضون 5 دقائق</div>
+                            </div>
+                            <div class="block-01__prod-plus">
+                                <div class="prod-pluses__title fwb">
+                                    يستعيد 99% من قوة الإبصار خلال
+                                </div>
+                                <div class="prod-pluses__text"> استخدامه الأول</div>
+                            </div>
+                            <div class="block-01__prod-plus">
+                                <div class="prod-pluses__title fwb">
+                                    يمنع تطور أمراض العيون
+                                </div>
+                                <div class="prod-pluses__text">وضعف الإبصار</div>
+                            </div>
+                            <div class="percent-box ttu">
+                                <div class="percent-box__title">إذا طلبته الآن</div>
+                                <div class="percent-box__percent">
+                                    فستحصل على خصم كبير يصل إلى 50 %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col xl4 l4 m6 s12">
+                            <div class="center-align block-01__prod-price wow fadeInLeft" data-wow-delay="1.9s">
+                                <div class="prod-price__old oldproductsum"></div>
+                                <div class="prod-price__new">
+                                    السعر بعد الخصم :5999 DA <span class="productsum"> </span>
+                                </div>
+                            </div>
+                            <div class="action-text wow fadeInLeft" data-wow-delay="3s">
+                                <span> حلول أمراض العيون أصبحت الآن بنصف التكلفة </span><span> احصل على عبوتان من <span style="display: inline-block">Oculus Vision</span> بسعر عبوة واحدة
+                </span>
+                            </div>
+                            <div class="form-box wow fadeInUp" data-wow-delay="1.8s">
+                                <form action="" method="post">
+                                        <input name="csrf_token" type="hidden" value="afbe9f4582f2ba4cf09b5574b77cfffb:1670678172" />
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option
+                data-country-code="DZ"
+                selected="selected"
+                value="33522"
+        >
+            Алжир        </option>
+    </select>
+
+        
+                                    <div class="input-field input_item">
+                                        <i class="material-icons prefix"> account_circle </i><input id="name_top" name="name" type="text" required />
+                                        <label dir="rtl" for="name_top">على سبيل المثال: محمد عطوان</label>
+                                    </div>
+                                    <div class="input-field input_item">
+                                        <i class="material-icons prefix"> phone </i><input class="only_number" id="phone_top" name="phone" type="tel" required /><label for="phone_top">
+                      مثال
+                      <span dir="ltr"> +213 568574853</span></label>
+                                    </div>
+                                    <div class="center-align">
+
+                                        
+                                        <button class="js_submit button__text waves-effect waves-light btn blue custom_btn mm_button"  type="submit">
+                      اطلب
+                    </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="block-2">
+                <div class="container">
+                    <div class="row valign-wrapper">
+                        <div class="col xl6 l6 m12 s12">
+                            <div class="block-2__subtitle ttu">هل بصرك</div>
+                            <div class="block-2__title ttu">يسوء  كل يوم؟ </div>
+                            <div class="block-2__text">
+                                تتمثل الحالة الرئيسية للرؤية الطبيعية في
+                                <span> مرونة العدسة البلورية </span> . لسوء الحظ، فإن هذه القدرة <span> تتضاءل </span> بموجب تأثير العديد من العوامل:
+                            </div>
+                            <div class="block-2__cause"><span> السن </span></div>
+                            <div class="block-2__cause">
+                                <span> الكثير جداً من الإرهاق </span> الذي تعاني منه العين
+                            </div>
+                            <div class="block-2__cause">
+                                <span> الكثير من العمليات الجراحية </span> (غالباً ما تسبب التهابات)
+                            </div>
+                            <div class="block-2__cause">
+                                <span> عدم كفاية إمدادات الدم للعين </span>
+                            </div>
+                            <div class="block-2__cause">
+                                <span> الوهن العضلي الوبيل </span> والضعف العضلي
+                            </div>
+                        </div>
+                        <div class="col xl6 l6 m12 s12">
+                            <div class="img_box block-2__image">
+                                <img src="img/b2-image.png" />
+                                <div class="block-2__image_text fwb">الكريستال</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="block-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col xl6 l6 m12 s12">
+                            <div class="b3-left"><img src="img/b3-image.png" /></div>
+                        </div>
+                        <div class="col xl6 l6 m12 s12">
+                            <div class="b3-right">
+                                <h2>
+                                    <span class="str-1"> يتمثل السبب الرئيسي لضعف البصر </span><span class="str-2"> في إختلال </span><span class="str-3"> عضلات العين! </span>
+                                </h2>
+                                <ul>
+                                    <li>
+                                        <span> يركز الجهاز العضلي العيون </span> في هذه الحالة  علي  تسليط الصورة التي تمر عبر عدسة العين على الشبكية.
+                                    </li>
+                                    <li>
+                                        <span> ينتج اضطراب عضلة العين </span> من الضغط والإحتكاك غير اللازم والمفرط لمقلة العين.
+                                    </li>
+                                    <li>
+                                        <span> ويحدث تشوه للعدسة </span> ويتشتت التركيز، بحيث لا يمكنك الرؤية بوضوح بعد ذلك.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col xl6 l8 m8 s12">
+                            <div class="b4-left">
+                                <div class="b4l-left"><img src="img/alert-2.png" /></div>
+                                <div class="b4l-right">
+                                    <h2>
+                                        <span class="str-1"> لن تجدي العدسات والنظارات </span><br /><span class="str-2"> أي نفع في ذلك
+                    </span><br />
+                                    </h2>
+                                </div>
+                                <div class="clearfix"></div>
+                                <p>
+                                    فهما يعملان على إراحة عضلات العين، مما يؤدي إلى تشوهها مما يؤدي إلى تفاقم المشكلة
+                                     </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="b4-right"><img src="img/b4-image.jpg" /></div>
+                </div>
+            </div>
+            <div class="block-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col xl5 l6 m12 s12">
+                            <div class="b5-left wow zoomIn">
+                                <img src="img/focus_bottle1.png" style="max-width: 225px;"/>
+                            </div>
+                        </div>
+                        <div class="col xl7 l6 m12 s12">
+                            <div class="b5-right">
+                                <h2>
+                                    <span class="str-1"> يعتبر <span style="display: inline-block">Oculus Vision</span> </span><br /><span class="str-2">
+                    منتجاً مبتكراً يساعد على </span><span class="str-3"> إستعادة البصر </span>
+                                </h2>
+                                <p>
+                                    <span> <span style="display: inline-block">Oculus Vision</span> </span> - عبارة عن تركيبة مغذية من المستخلصات الطبيعية التي تمتلك تأثيراً اتجاهياً في حال قصور النظر كما يعمل على القضاء كلياً على معظم الأمراض الشائعة التي تصيب عيون البشر.
+                                </p>
+                                <ul class="block-5_list">
+                                    <li>
+                                        <b> اللوتين </b> - يحمي الشبكية من المؤثرات الخارجية العديدة
+                                    </li>
+                                    <li>
+                                        <b> مونوهيدرات اللاكتوز </b> - يساعد على الحفاظ على صحة عضلات العين ويقلل الإجهاد
+                                    </li>
+                                    <li><b> الفيتامينات </b> - تُحسِّن صفاء الرؤية ووضوحها</li>
+                                    <li>
+                                        <b> ستيرات المغنيسيوم </b> - تعزز شعيرات وشرايين العين الدموية
+                                    </li>
+                                </ul>
+                                <p>
+                                    إنه المنتج الوحيد الذي ينظم وظيفة عضلات مقلة العين، مما يساعد على استعادة التركيز واستعادة صفاء العين ولمعانها والرؤية ثلاثية الأبعاد.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-6">
+                <div class="container">
+                    <div class="row">
+                        <div class="col xl6 l6 m12 s12">
+                            <div class="b6-left">
+                                <ul>
+                                    <li>
+                                        <span> يخفف الالتهابات : </span> والإجهاد، والجفاف، والتهيج.
+                                    </li>
+                                    <li>
+                                        <span> كما يعزز دقة النظر :</span> ويقوي شبكية العين.
+                                    </li>
+                                    <li>
+                                        <span> ويحفز الوصلات العصبية :</span> التي تتيح رؤية واضحة.
+                                    </li>
+                                    <li>
+                                        <span> ويعزز استجابة العضلات :</span> للإجهاد، ويقلل ويمنع فرط التوتر .
+                                    </li>
+                                    <li><span> يضمن تركيزاً </span> مناسباً لعدسة العين.</li>
+                                    <li><span> يعزز الدورة الدموية </span> داخل الشعيرات.</li>
+                                    <li>
+                                        <span> ويقضي على خطر الإصابة </span> بأمراض العيون الخطيرة.
+                                    </li>
+                                    <li><span> يجعل ضغط الدم طبيعياً </span> في قاع العين .</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col xl6 l6 m12 s12">
+                            <div class="b6-right">
+                                <h2>تقنية جديدة: <span> تعزيز عضلات العين </span></h2>
+                                <p>
+                                    تصبح العضلات <span> أقوى </span> و
+                                    <span> يمنع أي تشوه </span> لمقلة العين
+                                </p>
+                                <img src="img/focus_bottle1.png" style="max-width: 225px;"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-7">
+                <div class="container">
+                    <div class="row">
+                        <div class="col xl12 l12 m12 s12">
+                            <h2>متى تحتاج إلى <span> <span style="display: inline-block">Oculus Vision</span>؟ </span></h2>
+                            <div class="b7-top">
+                                <div class="factor wow rollIn">
+                                    <img src="img/factor-1.png" />
+                                    <p>قصور <span> وضعف </span> النظر</p>
+                                </div>
+                                <div class="factor wow rollIn">
+                                    <img src="img/factor-2.png" />
+                                    <p>
+                                        الأمراض والحالات المرضية <span> المتعددة </span> للجهاز البصري
+                                    </p>
+                                </div>
+                                <div class="factor wow rollIn">
+                                    <img src="img/factor-3.png" />
+                                    <p>شعور متكرر <span> بالحرقان و واحمرار </span> العين</p>
+                                </div>
+                                <div class="factor wow rollIn">
+                                    <img src="img/factor-4.png" />
+                                    <p>إذا <span> ارتديت النظارة أو العدسات اللاصقة </span></p>
+                                </div>
+                                <div class="factor wow rollIn">
+                                    <img src="img/factor-5.png" />
+                                    <p>
+                                        وإذا كنت تعاني من <span> الصداع </span> الذي يعتبره الجميع بمثابة صداع نصفي أو ارتفاع في ضغط الدم
+                                    </p>
+                                </div>
+                                <div class="factor wow rollIn">
+                                    <img src="img/factor-6.png" />
+                                    <p>
+                                        والشعور بالإجهاد سريعاً <span> في العين </span> وانخفاض معدل الأداء بصورة كلية
+                                    </p>
+                                </div>
+                                <div class="factor wow rollIn">
+                                    <img src="img/factor-7.png" />
+                                    <p>
+                                        وإذا كنت تعاني من
+                                        <span>  القابلية الوراثية، </span> أو كانت أسرتك تعاني من مشاكل متعلقة بالرؤية والإبصار
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-8">
+                <div class="container">
+                    <div class="row block_8-top">
+                        <h2 class="block_8-title col m8 offset-m2 s12">
+                            ما الذي يظهره البحث؟
+                        </h2>
+                        <p class="block_8-subtitle col m8 offset-m2 s12">
+                            جرى اختبار هذا المنتج من قبل أكبر المراكز البحثية والمستشفيات في روسيا وألمانيا
+                        </p>
+                        <div class="col m4 offset-m2 s12">
+                            <div class="info-num">
+                                <div>2570</div>
+                                المتطوعين
+                            </div>
+                        </div>
+                        <div class="col m4 s12">
+                            <p>
+                                شارك 2570 متطوع في التجارب السريرية للمنتج. كان جميعهم يعانون من اضطرابات مرتبطة بالإبصار وناتجة عن الإجهاد المفرط للعين أو أمراض العين.
+                            </p>
+                        </div>
+                        <div class="col m8 offset-m2 s12 block_8-bottom-text">
+                            حصل الجميع على قرص واحد من <b> <span style="display: inline-block">Oculus Vision</span> </b> كل يوم لمدة
+                            <b> 31 يوماً </b>
+                        </div>
+                    </div>
+                    <div class="row percents">
+                        <div class="col l2 m12 s12 percent_column-wrap wow zoomIn">
+                            <div class="percent_column">
+                                <div class="percent_column-inner">100%</div>
+                            </div>
+                            <p>إحمرار، وحكة، والتهاب أو تقرح العين</p>
+                        </div>
+                        <div class="col l2 m12 s12 percent_column-wrap wow zoomIn">
+                            <div class="percent_column">
+                                <div class="percent_column-inner">99.50%</div>
+                            </div>
+                            <p>
+                                لم يعد هناك شعور بالإجهاد في العين بعد العمل أمام الشاشات لمدة 8 ساعات أو أكثر
+                            </p>
+                        </div>
+                        <div class="col l2 m12 s12 percent_column-wrap wow zoomIn">
+                            <div class="percent_column">
+                                <div class="percent_column-inner">92%</div>
+                            </div>
+                            <p>انفصال طفيف في الشبكية</p>
+                        </div>
+                        <div class="col l2 m12 s12 percent_column-wrap wow zoomIn">
+                            <div class="percent_column">
+                                <div class="percent_column-inner">74%</div>
+                            </div>
+                            <p>
+                                يتعافي النظر والرؤية بعد أن يصبح مستوى الزرق وإعتام عدسة العين 1-2
+                            </p>
+                        </div>
+                        <div class="col l2 m12 s12 percent_column-wrap wow zoomIn">
+                            <div class="percent_column">
+                                <div class="percent_column-inner">92.50%</div>
+                            </div>
+                            <p>يتعافى بعد التهاب القرنية</p>
+                        </div>
+                        <div class="col l2 m12 s12 percent_column-wrap wow zoomIn">
+                            <div class="percent_column">
+                                <div class="percent_column-inner">100%</div>
+                            </div>
+                            <p>ازدادت تركيزات التورين واللوتين لتصل إلى مستويات صحية</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-9">
+                <div class="container">
+                    <div class="row">
+                        <div class="col xl6 l6 m4 s12">
+                            <div class="b9-left">
+                                <img src="img/doctor.png" />
+                                <p>خبير استعادة وتعافي النظر والرؤية</p>
+                            </div>
+                        </div>
+                        <div class="col xl6 l6 m8 s12">
+                            <div class="b9-right">
+                                <h2>رأي الخبراء</h2>
+                                <p>
+                                    على مدار السنوات القليلة الماضية، ازداد عدد الأشخاص الذين يعانون من ضعف النظر <span> بواقع 18 ضعفاً </span> . يشعر العديد من المرضى لدي بحالة من الذعر ويطلبون منى أن أصف لهم العدسات والنظارات، بالرغم من أنهم لا يفهمون
+                                    أن مثل هذه الإجراءات
+                                    <span>
+                    ستزيد الوضع سوءاً، مما يؤثر بالسلب على عين الشخص
+                  </span> .
+                                </p>
+                                <p>
+                                    في الوقت الحاضر، من الممكن حل المشكلة عن طريق مكمل غذائي وتحديداً في تلك الأغراض، <span> تم إنتاج <span style="display: inline-block">Oculus Vision</span> </span> . أنصح جميع مرضاي به وأصفه لهم
+                                    <span>
+                    وفي 99% من الحالات، يتمكنون من الرؤية بوضوح وجلاء بعد دورة واحدة من المكمل الغذائي
+                   </span> .
+                                </p>
+                                <p>
+                                    يحتوي المنتج على مزيجاً فريداً من العناصر والمكونات التي تعيد وظائف عضلات العينين وتحسِّن حالة العدسة، وهما من العوامل الرئيسية للرؤية والنظر الجيد.
+                                </p>
+                                <p>
+                                    باإضافة إلى تمارين العين، يتيح هذا المكمل الغذاائي نتائج مضمونة في أقل مدة ممكنة كما يساعد على تفادي وتجنب التدخلات الجراحية.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-10">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <h2>لقد استعادوا بصرهم بالفعل <span> بمساعدة Oculus Vision</span></h2>
+                        </div>
+                    </div>
+                    <div class="row review-slider">
+                        <div class="col xl4 l4 m6 s12 review-slide review-slide-1">
+                            <div class="rw-slide-inner">
+                                <div class="review-name">
+                                    <img class="review-avatar" src="img/instagram_post_1_avatar.png" /><span> ريفال </span>
+                                </div>
+                                <img class="review-image" src="img/instagram_post_1_foto.png" />
+                                <div class="post-manage"></div>
+                                <div class="likes">إعجابات: 1305</div>
+                                <p>
+                                    عانيت من قصر النظر الشديد لسنوات عديدة، ولا يمكنني الرؤية سوى بعين واحدة. أعمل عازفة بيانو، فالموسيقى هي أكبر متعة في حياتي، لكن لم يعد بإمكاني تمييز النوتة الموسيقية. كما لا يمكنني ارتداء النظارة لفترة أكثر من 15 – 20 دقيقة لأنها تتسبب في صداع رهيب. فقررت
+                                    أن أطلب <span style="display: inline-block">Oculus Vision</span> لأنني علمت أن المكمل الغذائي يساعد على استعادة قوة الإبصار لكن في حالتي الصعبة يمكنني فقط الدعاء من أجل الحصول على معجزة. ومع ذلك، بعد مرور شهر، تمكنت من تحقيق نتائج مذهلة. إِذْ تمكنت من استعادة نظري بالكامل
+                                    تقريباً. قال طبيب العيون خاصتي إنه لم يشهد مثل هذا التقدم من ذي قبل. والىن، ينصح جميع مرضاه به!
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col xl4 l4 m6 s12 review-slide review-slide-2">
+                            <div class="rw-slide-inner">
+                                <div class="review-name">
+                                    <img class="review-avatar" src="img/instagram_post_2_avatar.png" /><span> محمود </span>
+                                </div>
+                                <img class="review-image" src="img/instagram_post_2_foto.png" />
+                                <div class="post-manage"></div>
+                                <div class="likes">إعجابات: 1175</div>
+                                <p>
+                                    أعمل مبرمجاً، والعمل المتواصل أمام الشاشات ألحق أضراراً جسيمة ببصري. أصبح الأمر شديداً للغاية لدرجة أن كل شيء غير واضح. كما عانيت باستمرار من الصداع بسبب الإجهاد الذي أصاب العينين. اتضحت جدية وخطورة الامر بصورة جلية عندما لم أتمكن من العمل مطلقاً، لم
+                                    تعد عيناي قادرة على تمييز الأحرف الصغيرة على الشاشة. أخذت إجازة وطلبت <span style="display: inline-block">Oculus Vision</span>. بدأت في تناول المكمل الغذائي ومنحت عيني راحة لمدة أسبوعين من الكمبيوتر. كما مارست أيضاً تمارين رياضية للعينين لمدة 15 دقيقة كل يوم. وبطبيعة الحال،
+                                    فاجأتني النتائج. يمكنني رؤية كل شيء بوضوح الآن! من الآن فصاعداً، سأعتني بنظري دائماً.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col xl4 l4 m6 s12 review-slide review-slide-3">
+                            <div class="rw-slide-inner">
+                                <div class="review-name">
+                                    <img class="review-avatar" src="img/instagram_post_3_avatar.png" /><span> دارين </span>
+                                </div>
+                                <img class="review-image" src="img/instagram_post_3_foto.png" />
+                                <div class="post-manage"></div>
+                                <div class="likes">إعجابات: 986</div>
+                                <p>
+                                    علمت بشأن <span style="display: inline-block">Oculus Vision</span> في عيادتي، حيث تحدث مرضاي بفعالية عنه، وقررت أن أطلبه. لم لا أجربه؟ التقدم في السن له تأثيراته، ما يتوجب عليك ارتداء النظارات. وبخلاف ذلك، لا يمكنني حتى قراءة أرقام الحافلات. أُصيب طبيب العيون بخيبة أمل من نتائج اختباراتي – وبدأت أعاني
+                                    من مشاكل في الشبكية. يقولون إن <span style="display: inline-block">Oculus Vision</span> يُستخدم لحل جميع مشاكل العين تقريباً. ماذا يمكنني أن أقول؟ إنه منتج رائع! الآن يمكنني رؤية كل شيء على نحو أفضل بكثير، كما يمكنني حتى ان أرى أشياء بعيدة. لذا يمكنني أن أنصح الجميع
+                                    باستخدامه!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-11">
+                <div class="container">
+                    <div class="row valign-wrapper">
+                        <div class="col xl8 offset-xl1 l7 m8 s12">
+                            <div class="b11-left">
+                                <div class="alert">
+                                    <h3>إحذر التقليد! <span> <span style="display: inline-block">Oculus Vision</span> </span></h3>
+                                    <p>
+                                        لكي تتجنب عمليات النصب والنوعيات رديئة الجودة
+                                        <span>
+                      اشتري المنتج الأصلي من على هذا الموقع الرسمي فقط
+                    </span> .
+                                    </p>
+                                </div>
+                                <p class="quality">الجودة مضمونة بنسبة 100%</p>
+                            </div>
+                        </div>
+                        <div class="col xl3 l5 m4 s12">
+                            <div class="b11-right"><img src="img/focus_bottle1.png" style="max-width: 225px;"/></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col xl10 offset-xl1 l12 s12">
+                            <h2>هل أنت جاهز لطلب <span style="display: inline-block">Oculus Vision</span>؟</h2>
+                            <div class="stages">
+                                <div class="stage wow fadeInLeft">
+                                    <img src="img/stage-1.png" />
+                                    <p>املأ استمارة الطلب أدناه.</p>
+                                    <img class="arrow" src="img/arrow1.png" />
+                                </div>
+                                <div class="stage wow fadeInLeft">
+                                    <img src="img/stage-2.png" />
+                                    <p>انتظر اتصالاً من زملائنا لتأكيد الطلب</p>
+                                    <img class="arrow" src="img/arrow1.png" />
+                                </div>
+                                <div class="stage wow fadeInLeft">
+                                    <img src="img/stage-3.png" />
+                                    <p>
+                                        نعمل دون أي دفع مسبق! ادفع المقابل فقط عند استلام طلبك.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="block-01">
+                <div class="container">
+                    <div class="row">
+                        <div class="col xl6 l5 m12 s12">
+                            <div class="block-01__subtitle ttu">حان الوقت</div>
+                            <div class="block-01__title ttu">لاستعادة بصرك!</div>
+                        </div>
+                        <div class="col xl6 l7 m12 s12">
+                            <div class="block-01__dashes dflex">
+                                <div class="block-01__dashes-item wow bounceIn" data-wow-delay="1.5s">
+                                    <div class="dashes-item__text fwb ttu">
+                                        دون وصف الطبيب
+                                        <span>
+                      للاستخدام <br />
+                      المنزلي
+                    </span>
+                                    </div>
+                                </div>
+                                <div class="block-01__dashes-item wow bounceIn" data-wow-delay="1.6s">
+                                    <div class="dashes-item__text fwb ttu">
+                                        100% <span> مكونات طبيعية </span>
+                                    </div>
+                                </div>
+                                <div class="block-01__dashes-item wow bounceIn" data-wow-delay="1.7s">
+                                    <div class="dashes-item__text fwb ttu">
+                                        ينصح به
+                                        <span>
+                      مركز العناية <br />
+                      بالعيون
+                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col xl4 l4 m12 s12">
+                            <div class="img_box block-01__prod-image wow zoomIn" data-wow-delay="1.5s">
+                                <img src="img/focus_bottle1.png" style="max-width: 225px;"/>
+                            </div>
+                        </div>
+                        <div class="col xl4 l4 m6 s12">
+                            <div class="block-01__prod-plus">
+                                <div class="prod-pluses__title fwb">
+                                    يخفف الشعور بالإجهاد والألم في العيون
+                                </div>
+                                <div class="prod-pluses__text">في غضون 5 دقائق</div>
+                            </div>
+                            <div class="block-01__prod-plus">
+                                <div class="prod-pluses__title fwb">
+                                    يستعيد 99% من قوة الإبصار خلال
+                                </div>
+                                <div class="prod-pluses__text">برنامج الدورة الأولي</div>
+                            </div>
+                            <div class="block-01__prod-plus">
+                                <div class="prod-pluses__title fwb">
+                                    يمنع تطور أمراض العيون
+                                </div>
+                                <div class="prod-pluses__text">وضعف الإبصار</div>
+                            </div>
+                            <div class="percent-box ttu">
+                                <div class="percent-box__title">إذا طلبته الآن</div>
+                                <div class="percent-box__percent">
+                                    فستحصل على خصم كبير يصل إلى 50 %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col xl4 l4 m6 s12">
+                            <div class="center-align block-01__prod-price wow fadeInLeft" data-wow-delay="1.9s">
+                                <div class="prod-price__old oldproductsum"></div>
+                                <div class="prod-price__new">
+                                    السعر بعد الخصم :5999 DA<span class="productsum"> </span>
+                                </div>
+                            </div>
+                            <div class="action-text wow fadeInLeft" data-wow-delay="3s">
+                                <span> حلول أمراض العيون أصبحت الآن بنصف التكلفة </span><span> احصل على عبوتان من <span style="display: inline-block">Oculus Vision</span> بسعر عبوة واحدة
+                </span>
+                            </div>
+                            <div class="form-box wow fadeInUp" data-wow-delay="1.8s">
+                                <form action="" method="post">
+                                    <div class="input-field input_item">
+                                        <i class="material-icons prefix"> account_circle </i><input id="name_bottom" name="name" type="text" required />
+                                        <label dir="rtl" for="name_bottom">على سبيل المثال: محمد عطوان</label>
+                                    </div>
+                                    <div class="input-field input_item">
+                                        <i class="material-icons prefix"> phone </i><input class="only_number" id="phone_bottom" name="phone" type="tel" required />
+                                        <label for="phone_bottom">
+                      مثال
+                      <span dir="ltr"> +213 568574853</span></label>
+                                    </div>
+                                    <div class="center-align">
+                                            <input name="csrf_token" type="hidden" value="afbe9f4582f2ba4cf09b5574b77cfffb:1670678172" />
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option
+                data-country-code="DZ"
+                selected="selected"
+                value="33522"
+        >
+            Алжир        </option>
+    </select>
+
+        
+
+                                        
+                                        <button class="js_submit button__text waves-effect waves-light btn blue custom_btn mm_button"  type="submit">
+                      اطلب
+                    </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+ <style type="text/css">
+     [for="phone_top"], [for="phone_bottom"],
+     .select-wrapper{
+         display: none;
+         
+     }
+     .b6-right img,.b11-right img,
+     .b5-left img{
+        max-width: 400px;
+     }
+ </style>
+    <script src="js/materialize.min.js" type="text/javascript"></script>
+    <script src="js/wow.min.js" type="text/javascript"></script>
+    <script src="js/equalHeight.js" type="text/javascript"></script>
+    <script src="js/lightslider.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script src="js/js.cookie.min.js" type="text/javascript"></script>
+    <div class="ac_footer">
+       <div class="foot_en_center" style="text-align: center; margin: 0px auto; padding: 30px 0; font-size:15px">
+
+
+    
+            <p class="conf-link doclinks">
+        <a class="nav-link"  href="" onclick="window.open('/policy_en.php'); return false;">اجراءات الخصوصية</a>
+          |
+        <a class="nav-link"  href="" onclick="window.open('/terms_en.php'); return false;">الشروط & الأحكام</a>
+      </p>
+      
+    
+       </div>
+    </div>
+
+</body>
+
+</html>
